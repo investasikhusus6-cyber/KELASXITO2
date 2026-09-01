@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beranda — Kelas XI TO 2</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-orb"></div>
+  <img src="assets/logo.png" alt="Logo XI TO 2" class="preloader-logo-img">
+  <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+  <div class="preloader-sub">Memuat Website Kelas</div>
+</div>
+
+<nav>
+  <a class="logo" href="index.html"><img src="assets/logo.png" alt="Logo XI TO 2"> XI TO <span>2</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html" class="active">Beranda</a>
+    <a href="jadwal.html">Jadwal</a>
+    <a href="materi.html">Materi</a>
+    <a href="tugas.html">Tugas</a>
+    <a href="prestasi.html">Prestasi</a>
+    <a href="pengumuman.html">Pengumuman</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="kontak.html">Kontak</a>
+  </div>
+  <button class="burger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <header class="hero" style="overflow:hidden;">
+    <div class="float-shape" style="width:320px; height:320px; background:var(--accent); top:-80px; left:-80px; opacity:.35;"></div>
+    <div class="float-shape" style="width:260px; height:260px; background:var(--accent2); bottom:-60px; right:-60px; opacity:.3; animation-delay:2s;"></div>
+    <img src="assets/logo.png" alt="Logo Kelas XI TO 2" class="hero-logo hero-anim" style="animation-delay:0s;">
+    <div class="tag hero-anim" style="animation-delay:.1s;">SEMESTER 1 — TAHUN AJARAN 2025/2026</div>
+    <h1 class="hero-anim" style="animation-delay:.25s;">Website Resmi <span>Kelas XI TO 2</span></h1>
+    <p class="hero-anim" style="animation-delay:.4s;">Semua informasi kelas — jadwal pelajaran, materi, tugas, prestasi, dan dokumentasi kegiatan — dalam satu tempat.</p>
+    <div class="cta-row hero-anim" style="animation-delay:.55s;">
+      <a class="btn btn-primary" href="jadwal.html">Lihat Jadwal</a>
+      <a class="btn btn-ghost" href="kontak.html">Hubungi Kelas</a>
+    </div>
+  </header>
+
+  <div class="page-inner">
+    <div class="section-title">
+      <div class="tag">JELAJAHI</div>
+      <h2>Navigasi Cepat</h2>
+      <p>Klik untuk menuju halaman yang Chief butuhkan.</p>
+    </div>
+    <div class="grid-3">
+      <a class="card" href="jadwal.html" style="display:block;">
+        <div class="icon">📅</div>
+        <h3>Jadwal Pelajaran</h3>
+        <p>Jadwal harian kelas Senin–Jumat lengkap dengan nama guru.</p>
+      </a>
+      <a class="card" href="materi.html" style="display:block;">
+        <div class="icon">📚</div>
+        <h3>Materi Pelajaran</h3>
+        <p>Rangkuman dan bahan ajar tiap mata pelajaran.</p>
+      </a>
+      <a class="card" href="tugas.html" style="display:block;">
+        <div class="icon">📝</div>
+        <h3>Tugas & Deadline</h3>
+        <p>Daftar tugas aktif beserta tenggat waktu.</p>
+      </a>
+      <a class="card" href="prestasi.html" style="display:block;">
+        <div class="icon">🏆</div>
+        <h3>Prestasi Kelas</h3>
+        <p>Pencapaian dan lomba yang pernah diikuti kelas.</p>
+      </a>
+      <a class="card" href="pengumuman.html" style="display:block;">
+        <div class="icon">📢</div>
+        <h3>Pengumuman</h3>
+        <p>Info penting dari wali kelas.</p>
+      </a>
+      <a class="card" href="galeri.html" style="display:block;">
+        <div class="icon">📸</div>
+        <h3>Galeri Kegiatan</h3>
+        <p>Dokumentasi momen dan acara kelas.</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="page-inner" style="background:var(--bg-alt); padding-top:4rem; padding-bottom:5rem;">
+    <div class="section-title">
+      <div class="tag">ORGANISASI KELAS</div>
+      <h2>Struktur Kelas XI TO 2</h2>
+      <p>Susunan pengurus kelas semester 1. Ganti nama di bawah dengan data pengurus yang sebenarnya.</p>
+    </div>
+    <div class="struktur-wrap">
+
+      <div class="struktur-tier">
+        <div class="struktur-card tier-main">
+          <div class="struktur-avatar">👩‍🏫</div>
+          <div class="struktur-role">Wali Kelas</div>
+          <div class="struktur-name">Isi nama wali kelas</div>
+        </div>
+      </div>
+
+      <div class="struktur-connector"></div>
+
+      <div class="struktur-tier">
+        <div class="struktur-card">
+          <div class="struktur-avatar">👤</div>
+          <div class="struktur-role">Ketua Kelas</div>
+          <div class="struktur-name">Isi nama ketua kelas</div>
+        </div>
+        <div class="struktur-card">
+          <div class="struktur-avatar">👤</div>
+          <div class="struktur-role">Wakil Ketua Kelas</div>
+          <div class="struktur-name">Isi nama wakil ketua</div>
+        </div>
+      </div>
+
+      <div class="struktur-connector"></div>
+
+      <div class="struktur-tier">
+        <div class="struktur-card">
+          <div class="struktur-avatar">📋</div>
+          <div class="struktur-role">Sekretaris</div>
+          <div class="struktur-name">Isi nama sekretaris</div>
+        </div>
+        <div class="struktur-card">
+          <div class="struktur-avatar">💰</div>
+          <div class="struktur-role">Bendahara</div>
+          <div class="struktur-name">Isi nama bendahara</div>
+        </div>
+      </div>
+
+      <div class="struktur-connector"></div>
+
+      <div class="struktur-tier">
+        <div class="struktur-card">
+          <div class="struktur-avatar">🧹</div>
+          <div class="struktur-role">Seksi Kebersihan</div>
+          <div class="struktur-name">Isi nama</div>
+        </div>
+        <div class="struktur-card">
+          <div class="struktur-avatar">🛡️</div>
+          <div class="struktur-role">Seksi Keamanan</div>
+          <div class="struktur-name">Isi nama</div>
+        </div>
+        <div class="struktur-card">
+          <div class="struktur-avatar">⚙️</div>
+          <div class="struktur-role">Seksi Perlengkapan</div>
+          <div class="struktur-name">Isi nama</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="logo"><img src="assets/logo.png" alt="Logo XI TO 2"> XI TO <span>2</span></div>
+  <p>© 2026 Kelas XI TO 2 — Semester 1 — Dibuat untuk kebutuhan informasi internal kelas.</p>
+</footer>
+
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('preloader').classList.add('hide');
+    }, 1900);
+  });
+</script>
+
+</body>
+</html>

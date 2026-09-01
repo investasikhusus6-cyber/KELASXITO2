@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tugas — Kelas XI TO 2</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><img src="assets/logo.png" alt="Logo XI TO 2"> XI TO <span>2</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Beranda</a>
+    <a href="jadwal.html">Jadwal</a>
+    <a href="materi.html">Materi</a>
+    <a href="tugas.html" class="active">Tugas</a>
+    <a href="prestasi.html">Prestasi</a>
+    <a href="pengumuman.html">Pengumuman</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="kontak.html">Kontak</a>
+  </div>
+  <button class="burger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <div class="page-inner">
+    <div class="section-title">
+      <div class="tag">TUGAS & DEADLINE</div>
+      <h2>Daftar Tugas Aktif</h2>
+      <p>Klik salah satu tugas untuk melihat detail.</p>
+    </div>
+    <div class="file-list" id="tugasList">
+      <div class="file-row" style="cursor:default;"><div class="file-info"><p>Memuat data…</p></div></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="logo"><img src="assets/logo.png" alt="Logo XI TO 2"> XI TO <span>2</span></div>
+  <p>© 2026 Kelas XI TO 2 — Semester 1 — Dibuat untuk kebutuhan informasi internal kelas.</p>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="tag" id="modalTag" style="display:none;"></div>
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody"></p>
+  </div>
+</div>
+
+<script>
+  function openModal(title, body, tagText) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalBody').textContent = body;
+    const tagEl = document.getElementById('modalTag');
+    if (tagText) { tagEl.textContent = tagText; tagEl.style.display = 'inline-block'; }
+    else { tagEl.style.display = 'none'; }
+    document.getElementById('modalOverlay').classList.add('active');
+  }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+  document.getElementById('modalOverlay').addEventListener('click', e => {
+    if (e.target.id === 'modalOverlay') closeModal();
+  });
+
+  async function loadTugas() {
+    const container = document.getElementById('tugasList');
+    try {
+      const res = await fetch('data/tugas.json?_=' + Date.now());
+      const items = await res.json();
+      if (!items.length) {
+        container.innerHTML = '<div class="file-row" style="cursor:default;"><div class="file-info"><p>Belum ada tugas.</p></div></div>';
+        return;
+      }
+      container.innerHTML = items.map((it, i) => {
+        const badgeClass = it.status === 'Selesai' ? 'badge-done' : (it.status ? 'badge-warn' : '');
+        return `
+        <button class="file-row" data-idx="${i}">
+          <div class="file-icon">${it.icon || '📝'}</div>
+          <div class="file-info">
+            <h4>${it.title}</h4>
+            <p>${it.subtitle || ''}</p>
+          </div>
+          <div class="file-meta ${badgeClass}">${it.status || '-'}</div>
+          <div class="chevron">›</div>
+        </button>`;
+      }).join('');
+      container.querySelectorAll('.file-row').forEach(row => {
+        row.addEventListener('click', () => {
+          const it = items[row.dataset.idx];
+          let body = it.desc || 'Belum ada keterangan.';
+          if (it.fileUrl) body += ' (Lampiran tersedia — klik link di bawah setelah menutup ini.)';
+          openModal(it.title, body, it.subtitle);
+          if (it.fileUrl) {
+            const modalBox = document.querySelector('.modal-box');
+            let link = modalBox.querySelector('.modal-file-link');
+            if (!link) {
+              link = document.createElement('a');
+              link.className = 'modal-file-link';
+              link.style.cssText = 'display:inline-block;margin-top:1rem;color:var(--accent2);';
+              modalBox.appendChild(link);
+            }
+            link.href = it.fileUrl; link.target = '_blank'; link.textContent = 'Buka Lampiran →';
+          }
+        });
+      });
+    } catch (e) {
+      container.innerHTML = '<div class="file-row" style="cursor:default;"><div class="file-info"><p>Gagal memuat data tugas.</p></div></div>';
+    }
+  }
+  loadTugas();
+</script>
+
+</body>
+</html>
