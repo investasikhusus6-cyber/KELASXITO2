@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestasi — Kelas XI TO 2</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><img src="assets/logo.png" alt="Logo XI TO 2"> XI TO <span>2</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Beranda</a>
+    <a href="jadwal.html">Jadwal</a>
+    <a href="materi.html">Materi</a>
+    <a href="tugas.html">Tugas</a>
+    <a href="prestasi.html" class="active">Prestasi</a>
+    <a href="pengumuman.html">Pengumuman</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="kontak.html">Kontak</a>
+  </div>
+  <button class="burger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <div class="page-inner">
+    <div class="section-title">
+      <div class="tag">PRESTASI KELAS</div>
+      <h2>Pencapaian Kelas XI TO 2</h2>
+      <p>Tiap prestasi didokumentasikan dengan foto sertifikat dan foto saat lomba. Klik foto untuk memperbesar.</p>
+    </div>
+    <div id="prestasiList">
+      <div class="prestasi-card"><p class="prestasi-desc">Memuat data…</p></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="logo"><img src="assets/logo.png" alt="Logo XI TO 2"> XI TO <span>2</span></div>
+  <p>© 2026 Kelas XI TO 2 — Semester 1 — Dibuat untuk kebutuhan informasi internal kelas.</p>
+</footer>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<script>
+  function openLightbox(src, caption) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxCaption').textContent = caption || '';
+    document.getElementById('lightboxOverlay').classList.add('active');
+  }
+  function closeLightbox() { document.getElementById('lightboxOverlay').classList.remove('active'); }
+  document.getElementById('lightboxOverlay').addEventListener('click', e => {
+    if (e.target.id === 'lightboxOverlay') closeLightbox();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  function photoStrip(imgs, label, title) {
+    return imgs.map((img, i) => {
+      const cap = imgs.length > 1 ? `${title} — ${label} #${i+1}` : `${title} — ${label}`;
+      return `<div class="prestasi-photo-slot" data-img="${img}" data-cap="${cap.replace(/"/g,'&quot;')}">
+        <img src="${img}" alt="${label} ${title} ${i+1}">
+      </div>`;
+    }).join('');
+  }
+
+  async function loadPrestasi() {
+    const container = document.getElementById('prestasiList');
+    try {
+      const res = await fetch('data/prestasi.json?_=' + Date.now());
+      const items = await res.json();
+      if (!items.length) {
+        container.innerHTML = '<div class="prestasi-card"><p class="prestasi-desc">Belum ada prestasi tercatat.</p></div>';
+        return;
+      }
+      container.innerHTML = items.map(item => `
+        <div class="prestasi-card">
+          <h3>${item.title}</h3>
+          <div class="prestasi-meta">${item.meta || ''}</div>
+          <p class="prestasi-desc">${item.desc || ''}</p>
+          <div class="prestasi-photos">
+            <div class="prestasi-photo-group">
+              <div class="prestasi-photo-group-label">Sertifikat (${(item.sertifikat||[]).length} foto)</div>
+              <div class="prestasi-photo-strip">${photoStrip(item.sertifikat||[], 'Sertifikat', item.title)}</div>
+            </div>
+            <div class="prestasi-photo-group">
+              <div class="prestasi-photo-group-label">Foto Lomba (${(item.lomba||[]).length} foto)</div>
+              <div class="prestasi-photo-strip">${photoStrip(item.lomba||[], 'Foto Lomba', item.title)}</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      container.querySelectorAll('.prestasi-photo-slot').forEach(slot => {
+        slot.addEventListener('click', () => openLightbox(slot.dataset.img, slot.dataset.cap));
+      });
+    } catch (e) {
+      container.innerHTML = '<div class="prestasi-card"><p class="prestasi-desc">Gagal memuat data prestasi.</p></div>';
+    }
+  }
+  loadPrestasi();
+</script>
+
+</body>
+</html>
